@@ -15,10 +15,10 @@ import static org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK;
 
 public class Main
 {
-//    private static String yourAccessKey = "AKIAJ32FGOW46ARWMULQ";
-//    private static String yourSecretKey = "fcTdxFOaxZYe6vZcgNenU3mCSaBTfo9uZ3dxGbX8";
-//    private static String bucketName = "imdb-datasets";
-//    private static String key        = "documents/v1/current/title.basics.tsv.gz";
+    private static String yourAccessKey = "AKIAJ32FGOW46ARWMULQ";
+    private static String yourSecretKey = "fcTdxFOaxZYe6vZcgNenU3mCSaBTfo9uZ3dxGbX8";
+    private static String bucketName = "imdb-datasets";
+    private static String key        = "documents/v1/current/title.basics.tsv.gz";
 
     public static void main(String[] args) {
         SparkConf sparkConf = new SparkConf();
@@ -26,14 +26,17 @@ public class Main
         sparkConf.setMaster("local[*]");//* - number of cores. here we don't care
         JavaSparkContext sc = new JavaSparkContext(sparkConf);
         // try to load IMDB data to rdd
-        /*JavaRDD<String> rdd_title_bas = sc.textFile("s3n://"+yourAccessKey+":"+yourSecretKey+"@/"+bucketName+"/"+key);
-        sc.hadoopConfiguration.set("fs.s3n.awsAccessKeyId", "BLABLA")
-        sc.hadoopConfiguration.set("fs.s3n.awsSecretAccessKey", "....") // can contain "/"
-        */
-        JavaRDD<String> rdd_title_bas = sc.textFile("title.basics.tsv");
+
+        sc.hadoopConfiguration().set("fs.s3n.awsAccessKeyId", yourAccessKey);
+        sc.hadoopConfiguration().set("fs.s3n.awsSecretAccessKey", yourSecretKey);// can contain "/"
+        //sc.hadoopConfiguration().set("fs");
+
+        JavaRDD<String> rdd_title_bas = sc.textFile("s3n://"+bucketName+"/documents/v1/current/title.basics.tsv.gz");
+
+        //JavaRDD<String> rdd_title_bas = sc.textFile("title.basics.tsv");
         rdd_title_bas.persist(MEMORY_AND_DISK());
         long numberOfMovies = rdd_title_bas.count();
-        System.out.println("numberOfMovies = "+numberOfMovies);
+        System.out.println("numberOfMovies = "+numberOfMovies);//numberOfMovies = 4668775
         JavaRDD<Movie> movieRdd = rdd_title_bas.map(line->line.toLowerCase()).map(line->{
             String[] data = line.split("\t");
             //System.out.println("HERE IS SOME DATA");
@@ -52,7 +55,7 @@ public class Main
         JavaRDD<Movie> movies1980 = movieRdd.filter(movie -> movie.getYear()==1980);
         movies1980.persist(MEMORY_AND_DISK());
         long numberOf1980Movies = movies1980.count();
-        System.out.println("Movies in 1980 : "+numberOf1980Movies);
+        System.out.println("Movies in 1980 : "+numberOf1980Movies);//Movies in 1980 : 22104
 
     }
 }
