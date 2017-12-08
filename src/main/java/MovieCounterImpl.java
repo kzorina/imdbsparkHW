@@ -1,3 +1,4 @@
+import RddCreators.Movie;
 import org.apache.spark.api.java.JavaRDD;
 import org.springframework.stereotype.Service;
 
