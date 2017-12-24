@@ -23,7 +23,7 @@ import com.amazonaws.services.s3.model.S3Object;
 
 public class GetObject {
     private static String bucketName = "imdb-datasets";
-    private static String key = "documents/v1/current/title.ratings.tsv.gz";
+    private static String key = "documents/v1/current/title.ratings.csv.gz";
 
     public static void main(String[] args) throws IOException, InterruptedException {
         ProfileCredentialsProvider credentialsProvider =
@@ -66,7 +66,7 @@ public class GetObject {
 
     private static void writeFile(InputStream input) throws IOException, InterruptedException {
         byte[] buf = new byte[1024 * 1024];
-        OutputStream out = new FileOutputStream("title.ratings.tsv.gz");
+        OutputStream out = new FileOutputStream("title.ratings.csv.gz");
         int count;
         while ((count = input.read(buf)) != -1) {
             if (Thread.interrupted()) {
@@ -101,7 +101,7 @@ public class GetObject {
 //
 //public class GetObject {
 //    private static String bucketName = "imdb-datasets";
-//    private static String key        = "documents/v1/current/title.basics.tsv.gz";
+//    private static String key        = "documents/v1/current/title.basics.csv.gz";
 //
 //    public static void main(String[] args) throws IOException, InterruptedException {
 //        ProfileCredentialsProvider credentialsProvider =

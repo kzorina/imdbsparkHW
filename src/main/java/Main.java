@@ -22,7 +22,7 @@ public class Main
     private static String yourAccessKey = "AKIAJ32FGOW46ARWMULQ";
     private static String yourSecretKey = "fcTdxFOaxZYe6vZcgNenU3mCSaBTfo9uZ3dxGbX8";
     private static String bucketName = "imdb-datasets";
-    private static String key        = "documents/v1/current/title.basics.tsv.gz";
+    private static String key        = "documents/v1/current/title.basics.csv.gz";
 
     public static void main(String[] args) {
         SparkConf sparkConf = new SparkConf();
@@ -35,9 +35,9 @@ public class Main
 //        sc.hadoopConfiguration().set("fs.s3n.awsSecretAccessKey", yourSecretKey);// can contain "/"
 //        //sc.hadoopConfiguration().set("fs");
 //
-//        JavaRDD<String> rdd_title_bas = sc.textFile("s3n://"+bucketName+"/documents/v1/current/title.basics.tsv.gz");
+//        JavaRDD<String> rdd_title_bas = sc.textFile("s3n://"+bucketName+"/documents/v1/current/title.basics.csv.gz");
 //
-        JavaRDD<String> rdd_title_bas = sc.textFile("title.basics.tsv");
+        JavaRDD<String> rdd_title_bas = sc.textFile("title.basics.csv");
         rdd_title_bas.persist(MEMORY_AND_DISK());
        int kkk = 0;
         JavaPairRDD<String,Movie> movieRdd = rdd_title_bas.map(line->line.toLowerCase()).mapToPair(line->{
@@ -58,7 +58,7 @@ public class Main
         movieRdd.persist(MEMORY_AND_DISK());
         long numberOfMovies = movieRdd.count();
         System.out.println("numberOfMovies = "+numberOfMovies);//numberOfMovies = 4668775
-        JavaRDD<String> rdd_rating = sc.textFile("title.ratings.tsv");
+        JavaRDD<String> rdd_rating = sc.textFile("title.ratings.csv");
         rdd_rating.persist(MEMORY_AND_DISK());
 //        long numberOfMovies = rdd_rating.count();
 //        System.out.println("numberOfMovies = "+numberOfMovies);//numberOfMovies = 4668775

@@ -13,7 +13,7 @@ public class ProdConfig {
     @Bean
     public SparkConf sparkConf(){
         SparkConf sparkConf = new SparkConf();
-        sparkConf.setAppName("IMDB");
+        sparkConf.setAppName("IMDB_prod");
         return sparkConf;
     }
 }
