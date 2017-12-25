@@ -1,4 +1,6 @@
-import RddCreators.Movie;
+package old_shit;
+import old_shit.RddCreators.*;
+
 import org.apache.spark.api.java.JavaRDD;
 
 /**

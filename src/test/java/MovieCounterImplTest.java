@@ -1,4 +1,7 @@
-import RddCreators.Movie;
+import imdb_spark.configuration.Conf;
+import imdb_spark.Const;
+import old_shit.RddCreators.Movie;
+import old_shit.MovieCounter;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.junit.Assert;
@@ -17,8 +20,8 @@ import java.util.List;
  */
 
 //@RunWith(SpringRunner.class)
-//@ContextConfiguration(classes = Conf.class)
-//@ActiveProfiles(Const.DEV)
+//@ContextConfiguration(classes = imdb_spark.configuration.Conf.class)
+//@ActiveProfiles(imdb_spark.Const.DEV)
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = Conf.class)

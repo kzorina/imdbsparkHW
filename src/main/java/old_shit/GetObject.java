@@ -1,4 +1,4 @@
-/**
+package old_shit; /**
  * Created by zorka_000 on 04.12.2017.
  */
 import java.io.IOException;
@@ -15,7 +15,7 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 
 /**
- * Sample class for downloading name.basics.tsv.gz from the 'current' folder in the
+ * Sample class for downloading name.basics.csv.gz from the 'current' folder in the
  * imdb-datasets s3 bucket.
  *
  * Use with AWS Java SDK 1.11.156 or later.
@@ -23,12 +23,12 @@ import com.amazonaws.services.s3.model.S3Object;
 
 public class GetObject {
     private static String bucketName = "imdb-datasets";
-    private static String key = "documents/v1/current/title.ratings.csv.gz";
+    private static String key = "documents/v1/current/title.principals.tsv.gz";
 
     public static void main(String[] args) throws IOException, InterruptedException {
         ProfileCredentialsProvider credentialsProvider =
                 new ProfileCredentialsProvider("Z:/Studing/UCU/Programming/aws/AWSCredentials.properties",
-                        "zorina");
+                        "kzorina");
         AmazonS3 s3Client = new AmazonS3Client(credentialsProvider);
 
         try {
@@ -66,7 +66,7 @@ public class GetObject {
 
     private static void writeFile(InputStream input) throws IOException, InterruptedException {
         byte[] buf = new byte[1024 * 1024];
-        OutputStream out = new FileOutputStream("title.ratings.csv.gz");
+        OutputStream out = new FileOutputStream("title.principals.csv.gz");
         int count;
         while ((count = input.read(buf)) != -1) {
             if (Thread.interrupted()) {
@@ -93,13 +93,13 @@ public class GetObject {
 //import com.amazonaws.services.s3.model.S3Object;
 //
 ///**
-// * Sample class for downloading name.basics.tsv.gz from the 'current' folder in the
+// * Sample class for downloading name.basics.csv.gz from the 'current' folder in the
 // * imdb-datasets s3 bucket.
 // *
 // * Use with AWS Java SDK 1.11.156 or later.
 // */
 //
-//public class GetObject {
+//public class old_shit.GetObject {
 //    private static String bucketName = "imdb-datasets";
 //    private static String key        = "documents/v1/current/title.basics.csv.gz";
 //
@@ -145,7 +145,7 @@ public class GetObject {
 //
 //    private static void writeFile(InputStream input) throws IOException, InterruptedException {
 //        byte[] buf = new byte[1024 * 1024];
-//        OutputStream out = new FileOutputStream("name.basics.tsv.gz");
+//        OutputStream out = new FileOutputStream("name.basics.csv.gz");
 //        int count;
 //        while ((count = input.read(buf)) != -1) {
 //            if (Thread.interrupted()) {

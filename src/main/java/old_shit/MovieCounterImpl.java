@@ -1,4 +1,6 @@
-import RddCreators.Movie;
+package old_shit;
+
+import old_shit.RddCreators.*;
 import org.apache.spark.api.java.JavaRDD;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +11,7 @@ import java.io.Serializable;
  */
 @Service
 public class MovieCounterImpl implements MovieCounter, Serializable {
-
+//
     @Override
     public long movieCounter(JavaRDD<Movie> movies) {
         return movies.count();

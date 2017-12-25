@@ -1,8 +1,8 @@
-/**
+package old_shit; /**
  * Created by zorka_000 on 04.12.2017.
  */
-import RddCreators.Movie;
-import RddCreators.Rating;
+import old_shit.RddCreators.*;
+
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;

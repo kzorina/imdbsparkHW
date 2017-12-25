@@ -1,20 +1,26 @@
+package imdb_spark.custom_annotations;
+
+import imdb_spark.Const;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by zorka_000 on 24.12.2017.
  */
 
-@Component
+@Service
 @Aspect
 @Profile(Const.DEV)
 public class ShowDFAspect {
+
     @Before("@annotation(ShowDataframeInTheBeginning)")
     public void showDFInTheBeginningOfMethod(JoinPoint jp){
         Dataset<Row> dataFrame = (Dataset<Row>) jp.getArgs()[0];

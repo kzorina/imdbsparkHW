@@ -1,3 +1,5 @@
+package imdb_spark.custom_annotations;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

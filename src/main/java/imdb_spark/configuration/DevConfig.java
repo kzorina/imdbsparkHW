@@ -1,3 +1,6 @@
+package imdb_spark.configuration;
+
+import imdb_spark.Const;
 import org.apache.spark.SparkConf;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
