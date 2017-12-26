@@ -28,9 +28,9 @@ public class OperationActorMostAmountMoviesTest {
     private OperationActorMostAmountMovies mostMoviesActor;
     @Test
     public void doWork() throws Exception {
-        Dataset<Row> dataFrame = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/title.basics-test.csv");
-        mostMoviesActor.setName_file("./data/name.basics-test.csv");
-        mostMoviesActor.setPrincipals_file("./data/title.principals-test.csv");
+        Dataset<Row> dataFrame = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/test/title.basics-test.csv");
+        mostMoviesActor.setName_file("./data/test/name.basics-test.csv");
+        mostMoviesActor.setPrincipals_file("./data/test/title.principals-test.csv");
         Dataset<Row> result = mostMoviesActor.doWork(dataFrame);
         System.out.println(result.first());
         String test_result = result.first().getAs("primaryName");

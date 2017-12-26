@@ -43,8 +43,6 @@ public class OperationTopMoviesByYear implements OperationInterface {
     @ShowDataframeInTheEnd
     @Override
     public Dataset<Row> doWork(Dataset<Row> dataFrame) {
-        System.out.println("start with "+year);
-
         Dataset<Row> df_rating = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load(ratings_file);
 
         return dataFrame.join(df_rating,dataFrame.col("tconst").equalTo(df_rating.col("tconst"))).filter("startYear="+year).

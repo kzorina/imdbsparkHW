@@ -28,10 +28,10 @@ public class OperationActorTopSumRatingTest {
     private OperationActorTopSumRating topRatedActor;
     @Test
     public void doWork() throws Exception {
-        Dataset<Row> dataFrame = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/title.basics-test.csv");
-        topRatedActor.setName_file("./data/name.basics-test.csv");
-        topRatedActor.setPrincipals_file("./data/title.principals-test.csv");
-        topRatedActor.setRatings_file("./data/title.ratings-test.csv");
+        Dataset<Row> dataFrame = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/test/title.basics-test.csv");
+        topRatedActor.setName_file("./data/test/name.basics-test.csv");
+        topRatedActor.setPrincipals_file("./data/test/title.principals-test.csv");
+        topRatedActor.setRatings_file("./data/test/title.ratings-test.csv");
         Dataset<Row> result = topRatedActor.doWork(dataFrame);
 
         String test_result = result.first().getAs("primaryName");

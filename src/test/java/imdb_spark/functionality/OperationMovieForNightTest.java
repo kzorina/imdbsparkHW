@@ -28,8 +28,8 @@ public class OperationMovieForNightTest {
     private OperationMovieForNight movieForNight;
     @Test
     public void doWork() throws Exception {
-        Dataset<Row> dataFrame = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/title.basics-test.csv");
-        movieForNight.setRatings_file("./data/title.ratings-test.csv");
+        Dataset<Row> dataFrame = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/test/title.basics-test.csv");
+        movieForNight.setRatings_file("./data/test/title.ratings-test.csv");
         Dataset<Row> result = movieForNight.doWork(dataFrame);
 
         String test_result = result.first().getAs("primaryTitle");
