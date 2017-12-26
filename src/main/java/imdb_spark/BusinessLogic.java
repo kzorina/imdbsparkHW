@@ -42,6 +42,20 @@ public class BusinessLogic {
     @Autowired
     private ShowDFAspect showDf;
 
+    public void setParameters(OperationInterface workingOperation){
+        for (String parameterName:workingOperation.requiredParameters()){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Please enter "+parameterName+" : ");
+            String parameter = sc.nextLine();
+            try{
+                workingOperation.getClass().getDeclaredField(parameterName).set(workingOperation,parameter);
+            }catch(Exception e){
+                System.out.println(e);
+            }
+
+        }
+
+    }
 
     public void mainLogicWork() {
         Dataset<Row> df_basic = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/title.basics.csv");
@@ -64,38 +78,13 @@ public class BusinessLogic {
         System.out.println("Please enter operation code (among the above): ");
         int operation_code = Integer.parseInt(sc.nextLine());
         try{
-            Dataset<Row> result = possibleOperations.get(operation_code).doWork(df_basic);
+            OperationInterface workingOperation = possibleOperations.get(operation_code);
+            setParameters(workingOperation);
+            Dataset<Row> result = workingOperation.doWork(df_basic);
             result.show();
         }catch (Exception e){
             System.out.println("You entered : " + operation_code+", and it is not valid code, sorry.");
         }
 
-
     }
 }
-
-//        Dataset<Row> df_rating = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("title.ratings.csv");
-//        Dataset<Row> df_names = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("name.basics.csv");
-//        Dataset<Row> df_principals = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("title.principals.csv");
-
-//df_principals.show();
-//df_principals = df_principals.withColumn("arrayCast",functions.split(df_principals.col("principalCast"),",").cast("array<String>"));
-//df_principals = df_principals.withColumn("actor", functions.explode(df_principals.col("principalCast")));
-//df_principals.show();
-//        df_principals = df_principals.withColumn("actor", functions.explode(df_principals.col("arrayCast")));
-//        df_principals.show();
-//        Dataset<Row> topRatedActor = topActor.doWork(df_principals.join(df_rating,df_principals.col("tconst").equalTo(df_rating.col("tconst"))),query);
-//        topRatedActor.show();
-
-//        HashMap<Integer,Class<? extends imdb_spark.functionality.OperationInterface>> operationsMap = new HashMap<Integer,Class<? extends imdb_spark.functionality.OperationInterface>>();
-//        Reflections scanner = new Reflections();
-//        Set<Class<? extends imdb_spark.functionality.OperationInterface>> classes = scanner.getSubTypesOf(imdb_spark.functionality.OperationInterface.class);
-//        int counter = 1;
-//        for (Class<? extends imdb_spark.functionality.OperationInterface> aClass : classes) {
-//            if (!Modifier.isAbstract(aClass.getModifiers())) {
-//                operationsMap.put(counter, aClass);
-//                counter++;
-//                System.out.println(counter);
-//            }
-//        }
-//        System.out.println(operationsMap);

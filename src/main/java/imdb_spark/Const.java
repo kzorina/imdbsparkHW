@@ -13,4 +13,5 @@ public interface Const {
             col("startYear"),
             col("runtimeMinutes"),
             col("genres")};
+    int numberOfVotesLimit = 1000;
 }

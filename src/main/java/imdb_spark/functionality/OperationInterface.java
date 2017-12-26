@@ -4,6 +4,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -15,4 +16,6 @@ public interface OperationInterface {
     String description = null;
     public String getDescription();
     Dataset<Row> doWork(Dataset<Row> dataFrame);
+    ArrayList<String> requiredParameters();
+    //void setParameters();
 }

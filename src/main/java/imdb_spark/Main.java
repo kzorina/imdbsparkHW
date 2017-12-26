@@ -5,7 +5,7 @@ package imdb_spark; /**
 import imdb_spark.configuration.Conf;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class Main_ver2 {
+public class Main {
      public static void main(String[] args) {
         System.setProperty("spring.profiles.active", Const.DEV);
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Conf.class);
