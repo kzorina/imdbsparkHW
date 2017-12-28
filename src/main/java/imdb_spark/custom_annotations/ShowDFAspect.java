@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * Created by zorka_000 on 24.12.2017.
  */
 
-@Service
+@Component
 @Aspect
 @Profile(Const.DEV)
 public class ShowDFAspect {
