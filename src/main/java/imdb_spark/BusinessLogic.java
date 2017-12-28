@@ -54,7 +54,7 @@ public class BusinessLogic {
             }
         }
 
-        Dataset<Row> df_basic = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/title.basics.csv");
+        Dataset<Row> df_basic = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load("./data/".concat(basicFileName.concat(".csv")));
         df_basic.persist(MEMORY_AND_DISK());
         df_basic = df_basic.filter("titleType='"+includedTypes+"'");
         df_basic = df_basic.select(Const.important_columns);

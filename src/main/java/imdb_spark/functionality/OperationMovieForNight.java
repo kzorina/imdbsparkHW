@@ -1,5 +1,6 @@
 package imdb_spark.functionality;
 import imdb_spark.Const;
+import imdb_spark.GetObject;
 import imdb_spark.custom_annotations.*;
 import lombok.Setter;
 import org.apache.spark.sql.*;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Console;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -28,7 +30,7 @@ public class OperationMovieForNight implements OperationInterface {
     @Setter
     public String genre = "Comedy";
     @Setter
-    String ratings_file = "./data/title.ratings.csv";
+    String ratings_file = "title.ratings";
     @Autowired
     private SQLContext sqlContext;
     @Override
@@ -45,6 +47,16 @@ public class OperationMovieForNight implements OperationInterface {
     }
     @Override
     public Dataset<Row> doWork(Dataset<Row> dataFrame) {
+        File f = new File("./data/".concat(ratings_file.concat(".csv")));
+        if (!f.exists()){
+            try {
+                GetObject.downloadFile(ratings_file);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+
+        ratings_file = "./data/".concat(ratings_file.concat(".csv"));
         dataFrame = dataFrame.filter("startYear>="+year_from).filter("startYear<="+year_to).withColumn("genresArray", functions.split(dataFrame.col("genres"),",").cast("array<String>"));
         dataFrame = dataFrame.filter(array_contains(dataFrame.col("genresArray"),genre));
 

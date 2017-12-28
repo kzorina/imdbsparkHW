@@ -1,4 +1,5 @@
 package imdb_spark.functionality;
+import imdb_spark.GetObject;
 import imdb_spark.custom_annotations.*;
 import lombok.Setter;
 import org.apache.spark.sql.Dataset;
@@ -9,6 +10,7 @@ import org.apache.spark.sql.functions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,9 +26,9 @@ public class OperationActorMostAmountMovies implements OperationInterface {
 
     String description = "Find actor with higher amount of movies";
     @Setter
-    String name_file = "./data/name.basics.csv";
+    String name_file = "name.basics";
     @Setter
-    String principals_file = "./data/title.principals.csv";
+    String principals_file = "title.principals";
     @Override
     public ArrayList<String> requiredParameters(){
         ArrayList<String> list = new ArrayList<String>();
@@ -43,6 +45,27 @@ public class OperationActorMostAmountMovies implements OperationInterface {
 
     @Override
     public Dataset<Row> doWork(Dataset<Row> dataFrame) {
+        File f1 = new File("./data/".concat(name_file.concat(".csv")));
+        File f2 = new File("./data/".concat(principals_file.concat(".csv")));
+        if (!f1.exists()){
+            try {
+                GetObject.downloadFile(name_file);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        if (!f2.exists()){
+            try {
+                GetObject.downloadFile(principals_file);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        name_file = "./data/".concat(name_file.concat(".csv"));
+        principals_file = "./data/".concat(principals_file.concat(".csv"));
+
+
+
         Dataset<Row> df_names = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load(name_file);
         Dataset<Row> df_principals = sqlContext.read().format("csv").option("header", "true").option("delimiter","\t").load(principals_file);
         df_principals = df_principals.withColumn("arrayCast", functions.split(df_principals.col("principalCast"),",").cast("array<String>"));
