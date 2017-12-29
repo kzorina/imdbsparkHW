@@ -14,6 +14,9 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import lombok.Setter;
+import java.util.HashMap;
+import org.apache.commons.io.FileUtils;
+import java.net.URL;
 
 /**
  * Class for downloading files from the 'current' folder in the
@@ -45,7 +48,7 @@ public class GetObject {
         }
     }
 
-    public static void downloadFile(String file_name) throws IOException, InterruptedException {
+    public static void downloadFile_aws(String file_name) throws IOException, InterruptedException {
         setFile_name(file_name);
         ProfileCredentialsProvider credentialsProvider =
                 new ProfileCredentialsProvider(pathToProperties,
@@ -84,7 +87,16 @@ public class GetObject {
         }
     }
 
-
+ public static void downloadFile(String file_name) throws IOException, InterruptedException {
+        setFile_name(file_name);
+		File file_gz = new File("./data/".concat(file_name.concat(".tsv.gz")));
+        file_gz.createNewFile();
+		URL url = new URL(Const.FILES_URLS.get(file_name));
+        FileUtils.copyURLToFile(url, file_gz);
+		File file = new File("./data/".concat(file_name.concat(".csv")));
+        file.createNewFile();
+        gunzipIt(file_name.concat(".tsv.gz"),"./data/".concat(file_name.concat(".csv")));
+    }
     private static void writeFile(InputStream input) throws IOException, InterruptedException {
         byte[] buf = new byte[1024 * 1024];
         OutputStream out = new FileOutputStream(file_name.concat(".csv.gz"));

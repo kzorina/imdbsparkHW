@@ -1,0 +1,17 @@
+imdb_spark\configuration\DevConfig.class
+imdb_spark\Main.class
+imdb_spark\functionality\OperationTopMoviesByYear.class
+imdb_spark\functionality\OperationActorTopSumRating.class
+imdb_spark\custom_annotations\ShowDataframeInTheEnd.class
+imdb_spark\configuration\Conf.class
+imdb_spark\functionality\OperationActorMostAmountMovies.class
+imdb_spark\GetObject.class
+imdb_spark\custom_annotations\ShowDFAspect.class
+imdb_spark\custom_annotations\ShowDataframeInTheBeginning.class
+imdb_spark\custom_annotations\Operation.class
+imdb_spark\functionality\OperationInterface.class
+imdb_spark\Const$1.class
+imdb_spark\BusinessLogic.class
+imdb_spark\Const.class
+imdb_spark\functionality\OperationMovieForNight.class
+imdb_spark\configuration\ProdConfig.class
