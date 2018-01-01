@@ -71,7 +71,7 @@ public class BusinessLogic {
 
         }
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter operation code (among the above): ");
+        System.out.println("Please enter operation code (among the above listed): ");
         int operation_code = Integer.parseInt(sc.nextLine());
         try{
             OperationInterface workingOperation = possibleOperations.get(operation_code);
